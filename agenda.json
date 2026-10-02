@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-02T19:00:57.997Z",
+ "atualizadoEm": "2026-10-02T19:10:51.814Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -30,7 +30,7 @@
    "unidade": "1302",
    "tipo": "marcenaria",
    "inicio": "07:30",
-   "fim": "09:30",
+   "fim": "17:30",
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "",
    "status": "agendada",
