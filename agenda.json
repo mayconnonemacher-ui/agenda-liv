@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-02T19:11:08.610Z",
+ "atualizadoEm": "2026-10-02T20:36:23.931Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -33,6 +33,16 @@
    "fim": "15:30",
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-13": {
+   "unidade": "1501",
+   "tipo": "marcenaria",
+   "inicio": "07:30",
+   "fim": "17:30",
+   "empresa": "Todeschini",
+   "obs": "Fabiano Psidonik Vargas\nAdelar da Rosa Padilha\nThiago da Costa Nunes\nLeandro Soares de Miranda\nCristiano Patricio Branchi\nDuan Felipe de Castro Lopes\nPaulo Roberto Pereira Guimaraes",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
