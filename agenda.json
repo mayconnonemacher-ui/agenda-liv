@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-02T14:15:47.451Z",
+ "atualizadoEm": "2026-10-02T14:16:18.306Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -28,5 +28,20 @@
   }
  },
  "montagens": {},
- "comuns": {}
+ "comuns": {
+  "cmur1qef52vic": {
+   "area": "SALÃO DE FESTAS",
+   "tipo": "entrega",
+   "de": "2026-10-06",
+   "ate": "2026-10-06",
+   "diaTodo": true,
+   "inicio": "",
+   "fim": "",
+   "bloqueia": true,
+   "empresa": "DABOL MOVEIS",
+   "obs": "",
+   "status": "agendada",
+   "por": "Lisiane"
+  }
+ }
 }
