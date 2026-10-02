@@ -1,10 +1,21 @@
 {
- "atualizadoEm": "2026-10-02T11:00:00.000Z",
+ "atualizadoEm": "2026-10-02T13:31:18.389Z",
  "config": {
   "haMorador": false,
   "contato": "",
   "ate": "2027-01-31"
  },
- "entregas": {},
+ "entregas": {
+  "2026-10-05": {
+   "unidade": "1302",
+   "tipo": "marcenaria",
+   "inicio": "08:00",
+   "fim": "17:30",
+   "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
+   "obs": "CLEVERSON / CAIO / EDSON\nMontagem de Marcenaria \nO dia todo para entrega",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  }
+ },
  "montagens": {}
 }
