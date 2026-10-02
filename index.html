@@ -14,7 +14,7 @@
 :root {
   --bg: #EEF1EF; --surface: #FBFCFB; --sunk: #E4E9E6; --ink: #1B2522; --muted: #55635D; --line: #CFD7D2;
   --accent: #0E5F5B; --accent-ink: #FFFFFF;
-  --wood: #824A11; --wood-bg: #F5E6D2; --stone: #3A5270; --stone-bg: #DFE7F1;
+  --wood: #824A11; --wood-bg: #F5E6D2; --stone: #3A5270; --stone-bg: #DFE7F1; --obra: #5B4A78; --obra-bg: #E9E3F2;
   --ok: #1F6740; --ok-bg: #DCEFE3; --warn: #8F4B04; --warn-bg: #FBEAD0; --danger: #A5302A;
   --display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
   --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -22,7 +22,7 @@
 @media (prefers-color-scheme: dark) { :root {
   --bg: #111615; --surface: #1A211F; --sunk: #151B1A; --ink: #E4EBE8; --muted: #9BAAA4; --line: #2D3835;
   --accent: #63C7BF; --accent-ink: #0B1A19;
-  --wood: #E6B273; --wood-bg: #38291A; --stone: #A9BEDA; --stone-bg: #212C3A;
+  --wood: #E6B273; --wood-bg: #38291A; --stone: #A9BEDA; --stone-bg: #212C3A; --obra: #C6B6E6; --obra-bg: #2A2438;
   --ok: #7FD6A3; --ok-bg: #183326; --warn: #F0B569; --warn-bg: #3A2A14; --danger: #F2928A;
   color-scheme: dark } }
 
@@ -96,12 +96,16 @@ h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 5vw, 
 .dia.passado .dia-sem, .dia.passado .dia-data { color: var(--muted); }
 .faixa { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .faixa + .faixa { border-top: 1px solid var(--line); flex: 1; }
+.faixa.fx-comum { flex: 0 0 auto; }
 .faixa-tit { margin: 0; font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
 .fechado { padding: 14px 12px; color: var(--muted); font-size: 13.5px; }
 
 .cartao { display: flex; flex-direction: column; gap: 2px; text-align: left; width: 100%; border: 1px solid transparent; border-radius: 6px; padding: 9px 10px; min-width: 0; }
 .cartao.marcenaria { background: var(--wood-bg); }
 .cartao.pedras { background: var(--stone-bg); }
+.cartao.comum { background: var(--obra-bg); }
+.cartao.comum .tipo, .cartao.comum .apto { color: var(--obra); }
+.cartao.comum .apto { font-size: 18px; overflow-wrap: anywhere; }
 button.cartao { cursor: pointer; }
 button.cartao:hover { border-color: currentColor; }
 .cartao.marcenaria .tipo, .cartao.marcenaria .apto { color: var(--wood); }
@@ -113,6 +117,7 @@ button.cartao:hover { border-color: currentColor; }
 .linha.obs { color: var(--muted); }
 .marcas { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
 .marca { font-size: 12px; white-space: nowrap; font-style: normal; font-weight: 600; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
+.cartao .marca { white-space: normal; }
 .marca.ok { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
 .marca.alerta { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
 .cartao.feito { opacity: .78; }
@@ -144,6 +149,9 @@ button.cartao:hover { border-color: currentColor; }
 .pil.pedras { background: var(--stone-bg); color: var(--stone); }
 .pil.cheia.marcenaria { background: var(--wood); color: var(--surface); }
 .pil.cheia.pedras { background: var(--stone); color: var(--surface); }
+.pil.comum { background: var(--obra-bg); color: var(--obra); }
+.pil.cheia.comum { background: var(--obra); color: var(--surface); }
+.cel-res { font-size: 12px; font-weight: 600; color: var(--obra); line-height: 1.2; }
 .pil.neutra { background: var(--sunk); color: var(--muted); }
 .pil.outro { opacity: .35; }
 .pil.meu { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -151,6 +159,7 @@ button.cartao:hover { border-color: currentColor; }
 .detalhe .dia-cab { width: 100%; }
 .detalhe .faixa { flex: 1 1 260px; }
 .detalhe .faixa + .faixa { border-top: 0; border-left: 1px solid var(--line); }
+.detalhe .faixa.fx-comum { flex: 1 1 100%; border-left: 0; border-top: 1px solid var(--line); }
 
 /* Legenda, tabela, regras */
 .legenda { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); font-size: 13px; align-items: center; }
@@ -195,6 +204,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   .quadro .dia { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .quadro .dia-cab, .quadro .fechado { grid-column: 1 / -1; }
   .quadro .faixa + .faixa { border-top: 0; border-left: 1px solid var(--line); }
+  .quadro .faixa.fx-comum { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
   .duas { grid-template-columns: minmax(0, 1fr); }
   .papel { align-items: flex-start; text-align: left; }
   .papel-linha { justify-content: flex-start; }
@@ -242,6 +252,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   <div class="acoes" id="acoes" hidden>
     <button class="btn pri" type="button" data-acao="nova-entrega">Reservar entrega</button>
     <button class="btn pri" type="button" data-acao="nova-montagem">Agendar montagem</button>
+    <button class="btn pri" type="button" data-acao="nova-comum">Reserva da construtora</button>
     <button class="btn" type="button" data-acao="config">Configurações</button>
   </div>
 
@@ -257,6 +268,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     <span><i class="pil cheia marcenaria">nº</i><i class="pil cheia pedras">nº</i> entrega (cor cheia)</span>
     <span><i class="pil marcenaria">nº</i><i class="pil pedras">nº</i> montagem (cor clara)</span>
     <span>marrom = marcenaria · azul = pedras</span>
+    <span><i class="pil comum">AC</i> áreas comuns (construtora)</span>
     <span><i class="marca ok">Entregue</i> material já no apartamento</span>
     <span><i class="marca alerta">Aguarda entrega</i> montagem depende de entrega ainda não confirmada</span>
   </div>
@@ -265,6 +277,8 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     <section>
       <h2>Situação por apartamento</h2>
       <div id="aptos"></div>
+      <h2 style="margin-top:22px">Áreas comuns · construtora</h2>
+      <div id="comuns"></div>
     </section>
     <section>
       <h2>Regras de acesso</h2>
@@ -339,6 +353,32 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   </form>
 </dialog>
 
+<dialog id="dlg-comum" aria-labelledby="tit-comum">
+  <form class="form" id="form-comum" novalidate>
+    <h2 id="tit-comum">Reserva da construtora</h2>
+    <p class="dica">Entregas, montagem ou serviços nas áreas comuns. A reserva pode valer o dia todo ou só um período.</p>
+    <div class="campos">
+      <div class="campo largo"><label for="k-area">Área comum</label><input id="k-area" maxlength="40" placeholder="ex.: salão de festas" autocomplete="off"></div>
+      <div class="campo largo"><label for="k-tipo">O que será feito</label><select id="k-tipo"><option value="entrega">Entrega de materiais</option><option value="montagem">Montagem</option><option value="servico">Serviço ou reparo</option></select></div>
+      <div class="campo"><label for="k-de">Primeiro dia</label><input id="k-de" type="date"></div>
+      <div class="campo"><label for="k-ate">Último dia</label><input id="k-ate" type="date"></div>
+      <div class="campo largo"><label class="marcar" for="k-diatodo"><input id="k-diatodo" type="checkbox"> <span>Dia todo</span></label></div>
+      <div class="campo"><label for="k-inicio">Início</label><input id="k-inicio" type="time" step="900"></div>
+      <div class="campo"><label for="k-fim">Término</label><input id="k-fim" type="time" step="900"></div>
+      <div class="campo largo"><label class="marcar" for="k-bloqueia"><input id="k-bloqueia" type="checkbox"> <span>Fecha esse período para entrega de materiais dos apartamentos</span></label></div>
+      <div class="campo largo"><label for="k-empresa">Empresa / responsável</label><input id="k-empresa" maxlength="80" autocomplete="off"></div>
+      <div class="campo largo"><label for="k-obs">Observações</label><textarea id="k-obs" maxlength="240"></textarea></div>
+      <div class="campo largo"><label for="k-status">Situação</label><select id="k-status"><option value="agendada">Agendada</option><option value="concluida">Concluída</option></select></div>
+    </div>
+    <p class="erro" id="k-erro" role="alert" hidden></p>
+    <div class="botoes">
+      <button class="btn perigo esq" type="button" id="k-excluir" hidden>Excluir</button>
+      <button class="btn" type="button" data-fechar>Cancelar</button>
+      <button class="btn pri" type="submit" id="k-salvar">Salvar</button>
+    </div>
+  </form>
+</dialog>
+
 <dialog id="dlg-config" aria-labelledby="tit-config">
   <form class="form" id="form-config" novalidate>
     <h2 id="tit-config">Configurações</h2>
@@ -372,6 +412,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   var DIAS_L = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
   var MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
   var TIPOS = { marcenaria: 'Marcenaria', pedras: 'Pedras' };
+  var TIPOS_C = { entrega: 'Entrega de materiais', montagem: 'Montagem', servico: 'Serviço ou reparo' };
 
   var pad = function (n) { return String(n).padStart(2, '0'); };
   var iso = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
@@ -392,6 +433,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     d.config = Object.assign({ haMorador: false, contato: '', ate: ATE_PADRAO }, d.config || {});
     d.entregas = d.entregas && typeof d.entregas === 'object' ? d.entregas : {};
     d.montagens = d.montagens && typeof d.montagens === 'object' ? d.montagens : {};
+    d.comuns = d.comuns && typeof d.comuns === 'object' ? d.comuns : {};
     return d;
   }
   var D = normalizar({});
@@ -463,7 +505,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     var j = janelaDe(f.inicio);
     if (!j || mins(f.fim) > j[1]) return 'Horário fora do permitido (' + textoJanelas() + ').';
     if (f.data !== original && D.entregas[f.data]) return 'O dia ' + dm(f.data) + ' já tem a entrega do apto ' + D.entregas[f.data].unidade + '. Só uma entrega por dia: escolha outra data.';
-    return '';
+    return conflitoComum(f.data, f.inicio, f.fim, null);
   }
   function validarMontagem(f) {
     if (!/^\d{3,4}$/.test(f.unidade)) return 'Informe o número do apartamento (ex.: 802).';
@@ -476,6 +518,52 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     if (!janelaDe(f.chegada)) return 'Horário de chegada fora do permitido (' + textoJanelas() + ').';
     if (f.status !== 'concluida' && !f.materiaisDeclarados && !entregaAte(f.unidade, f.tipo, f.de))
       return 'Não há entrega de ' + TIPOS[f.tipo].toLowerCase() + ' registrada para o apto ' + f.unidade + ' até ' + dm(f.de) + '. Reserve a entrega antes ou marque que o material já foi entregue.';
+    return '';
+  }
+
+  /* áreas comuns (construtora) */
+  function tipoC(c) { return TIPOS_C[c && c.tipo] ? c.tipo : 'servico'; }
+  function periodoC(c) { return c.diaTodo ? 'dia todo' : hora(c.inicio) + '–' + hora(c.fim); }
+  function comunsDoDia(s) {
+    if (!diaUtil(s) || feriado(s)) return [];
+    return Object.keys(D.comuns).map(function (id) { return Object.assign({ id: id }, D.comuns[id]); })
+      .filter(function (c) { return c.de && c.de <= s && (c.ate || c.de) >= s; })
+      .sort(function (a, b) { return (a.diaTodo ? 0 : mins(a.inicio)) - (b.diaTodo ? 0 : mins(b.inicio)); });
+  }
+  function bloqueios(s, ignorar) { return comunsDoDia(s).filter(function (c) { return c.bloqueia && c.status !== 'concluida' && c.id !== ignorar; }); }
+  function diaFechado(s) { return bloqueios(s).some(function (c) { return c.diaTodo; }); }
+  function cruza(c, inicio, fim) { return c.diaTodo || (mins(inicio) < mins(c.fim) && mins(c.inicio) < mins(fim)); }
+  // reserva da construtora que impede uma entrega nesse dia e horário: devolve a mensagem ou ''
+  function conflitoComum(dia, inicio, fim, ignorar) {
+    var c = bloqueios(dia, ignorar).filter(function (x) { return cruza(x, inicio, fim); })[0];
+    if (!c) return '';
+    return 'Em ' + dm(dia) + ' a construtora reservou ' + (c.diaTodo ? 'o dia todo' : 'das ' + hora(c.inicio) + ' às ' + hora(c.fim)) + ' (' + c.area + '). ' + (c.diaTodo ? 'Escolha outro dia.' : 'Escolha um horário fora desse período ou outro dia.');
+  }
+  function diasAbertos(de, ateDia) { var out = [], d = parse(de), f = parse(ateDia), n = 0; while (d <= f && n++ < 200) { var s = iso(d); if (aberto(s)) out.push(s); d = addDays(d, 1); } return out; }
+  function validarComum(f, id) {
+    if (f.area.length < 2) return 'Informe a área comum (ex.: salão de festas).';
+    if (!f.de || !f.ate) return 'Informe o primeiro e o último dia.';
+    if (f.ate < f.de) return 'O último dia não pode ser antes do primeiro.';
+    var a = motivoFechado(f.de), b = motivoFechado(f.ate);
+    if (a) return 'Primeiro dia: ' + a;
+    if (b) return 'Último dia: ' + b;
+    if ((parse(f.ate) - parse(f.de)) / 864e5 > 60) return 'Período muito longo. Reserve no máximo 60 dias por vez.';
+    if (!f.diaTodo) {
+      if (!f.inicio || !f.fim) return 'Informe o início e o término, ou marque "Dia todo".';
+      if (mins(f.fim) <= mins(f.inicio)) return 'O término precisa ser depois do início.';
+      var j = janelaDe(f.inicio);
+      if (!j || mins(f.fim) > j[1]) return 'Horário fora do permitido (' + textoJanelas() + ').';
+    }
+    if (f.bloqueia && f.status !== 'concluida') {
+      var dias = diasAbertos(f.de, f.ate);
+      for (var i = 0; i < dias.length; i++) {
+        var e = D.entregas[dias[i]];
+        if (e && (f.diaTodo || (mins(f.inicio) < mins(e.fim) && mins(e.inicio) < mins(f.fim))))
+          return 'Em ' + dm(dias[i]) + ' já há a entrega do apto ' + e.unidade + ' das ' + hora(e.inicio) + ' às ' + hora(e.fim) + '. Ajuste o período ou desmarque o fechamento para entregas.';
+        var o = bloqueios(dias[i], id).filter(function (x) { return f.diaTodo || cruza(x, f.inicio, f.fim); })[0];
+        if (o) return 'Em ' + dm(dias[i]) + ' já existe outra reserva da construtora nesse período (' + o.area + ', ' + periodoC(o) + ').';
+      }
+    }
     return '';
   }
 
@@ -577,8 +665,23 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
       (marca ? '<span class="marcas">' + marca + '</span>' : '') +
       '</' + tag + '>';
   }
+  function cartaoComum(c) {
+    var tag = ED.ativo ? 'button' : 'div', t = tipoC(c);
+    var at = ED.ativo ? ' type="button" data-acao="editar-comum" data-id="' + esc(c.id) + '" aria-label="Editar reserva da construtora em ' + esc(c.area) + '"' : '';
+    var varios = (c.ate || c.de) !== c.de;
+    var marcas = (c.status === 'concluida' ? '<span class="marca ok">Concluída</span>' : '') +
+      (c.bloqueia && c.status !== 'concluida' ? '<span class="marca alerta">Sem entregas ' + (c.diaTodo ? 'no dia' : 'nesse horário') + '</span>' : '');
+    return '<' + tag + ' class="cartao comum' + (c.status === 'concluida' ? ' feito' : '') + '"' + at + '>' +
+      '<span class="apto">' + esc(c.area) + '</span><span class="tipo">' + TIPOS_C[t] + '</span>' +
+      '<span class="linha hora">' + periodoC(c) + '</span>' +
+      (c.empresa ? '<span class="linha">' + esc(c.empresa) + '</span>' : '') +
+      (varios ? '<span class="linha obs">de ' + dm(c.de) + ' a ' + dm(c.ate) + '</span>' : '') +
+      (c.obs ? '<span class="linha obs">' + esc(c.obs) + '</span>' : '') +
+      (marcas ? '<span class="marcas">' + marcas + '</span>' : '') +
+      '</' + tag + '>';
+  }
   function htmlDia(s, longo) {
-    var hoje = hojeIso(), passado = s < hoje, e = D.entregas[s], ms = montagensDoDia(s), d = parse(s);
+    var hoje = hojeIso(), passado = s < hoje, e = D.entregas[s], ms = montagensDoDia(s), cs = comunsDoDia(s), bl = bloqueios(s), d = parse(s);
     var h = '<section class="dia' + (s === hoje ? ' hoje' : '') + (passado ? ' passado' : '') + '" aria-label="' + DIAS_L[d.getDay()] + ' ' + dm(s) + '">' +
       '<header class="dia-cab"><span class="dia-sem">' + (longo ? DIAS_L[d.getDay()] : DIAS[d.getDay()]) + '</span><span class="dia-data">' + (longo ? d.getDate() + ' de ' + MESES[d.getMonth()] : dm(s)) + '</span>' +
       (s === hoje ? '<span class="dia-hoje">hoje</span>' : '') + '</header>';
@@ -586,25 +689,34 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     h += '<div class="faixa"><h3 class="faixa-tit">Entrega de materiais</h3>';
     if (e) h += cartaoEntrega(s, e);
     else if (passado) h += '<div class="livre">Sem entrega</div>';
-    else h += '<div class="livre vaga"><span>Dia livre</span>' + (ED.ativo ? '<button class="mais" type="button" data-acao="nova-entrega" data-dia="' + s + '">Reservar</button>' : '') + '</div>';
+    else if (diaFechado(s)) h += '<div class="livre">Dia reservado pela construtora</div>';
+    else h += '<div class="livre vaga"><span>' + (bl.length ? 'Livre fora de ' + bl.map(periodoC).join(' e ') : 'Dia livre') + '</span>' + (ED.ativo ? '<button class="mais" type="button" data-acao="nova-entrega" data-dia="' + s + '">Reservar</button>' : '') + '</div>';
     h += '</div><div class="faixa"><h3 class="faixa-tit"><span>Montagem</span><span>' + (ms.length ? ms.length : '') + '</span></h3>';
     h += ms.length ? ms.map(cartaoMontagem).join('') : '<div class="livre">Nenhum prestador</div>';
     if (ED.ativo) h += '<button class="mais" type="button" data-acao="nova-montagem" data-dia="' + s + '">+ Agendar montagem</button>';
-    return h + '</div></section>';
+    h += '</div>';
+    if (cs.length || ED.ativo) {
+      h += '<div class="faixa fx-comum"><h3 class="faixa-tit"><span>Áreas comuns · construtora</span><span>' + (cs.length ? cs.length : '') + '</span></h3>' + cs.map(cartaoComum).join('');
+      if (ED.ativo) h += '<button class="mais" type="button" data-acao="nova-comum" data-dia="' + s + '">+ Reserva da construtora</button>';
+      h += '</div>';
+    }
+    return h + '</section>';
   }
   function htmlCel(s, ym) {
-    var hoje = hojeIso(), e = D.entregas[s], ms = montagensDoDia(s), fer = feriado(s), d = parse(s);
+    var hoje = hojeIso(), e = D.entregas[s], ms = montagensDoDia(s), cs = comunsDoDia(s), fer = feriado(s), d = parse(s);
     var cls = 'cel' + (s.slice(0, 7) !== ym ? ' fora' : '') + (s === hoje ? ' hoje' : '') + (s === UI.dia ? ' sel' : '') + (s < hoje ? ' passado' : '');
     var h = '<button type="button" class="' + cls + '" data-acao="dia" data-dia="' + s + '" aria-label="' + DIAS_L[d.getDay()] + ', ' + d.getDate() + ' de ' + MESES[d.getMonth()] + '"><span class="cel-num">' + d.getDate() + '</span>';
     if (fer) h += '<span class="cel-fer">' + esc(fer) + '</span>';
     else if (aberto(s)) {
       if (e) h += '<span class="pil cheia ' + tipoDe(e) + marcaFiltro(e.unidade) + '">' + esc(e.unidade) + '</span>';
+      else if (s >= hoje && diaFechado(s)) h += '<span class="cel-res">construtora</span>';
       else if (s >= hoje) h += '<span class="cel-livre">livre</span>';
       if (ms.length) {
         var meus = UI.apto ? ms.filter(function (m) { return String(m.unidade) === UI.apto; }) : [], lista = meus.concat(ms.filter(function (m) { return meus.indexOf(m) < 0; }));
         h += '<span class="cel-mont">' + lista.slice(0, 3).map(function (m) { return '<span class="pil ' + tipoDe(m) + marcaFiltro(m.unidade) + '">' + esc(m.unidade) + '</span>'; }).join('') +
           (lista.length > 3 ? '<span class="pil neutra">+' + (lista.length - 3) + '</span>' : '') + '</span>';
       }
+      if (cs.length) h += '<span class="cel-mont"><span class="pil comum' + (cs.some(function (c) { return c.bloqueia; }) ? ' cheia' : '') + '">AC' + (cs.length > 1 ? ' ' + cs.length : '') + '</span></span>';
     }
     return h + '</button>';
   }
@@ -637,6 +749,14 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     var cel = function (l) { return l.length ? l.join('<br>') : '<span class="sub">—</span>'; };
     $('#aptos').innerHTML = '<div class="rolagem"><table><thead><tr><th rowspan="2">Apto</th><th colspan="2">Marcenaria</th><th colspan="2">Pedras</th></tr><tr><th>Entrega</th><th>Montagem</th><th>Entrega</th><th>Montagem</th></tr></thead><tbody>' +
       us.map(function (u) { var x = mapa[u]; return '<tr' + (u === UI.apto ? ' class="meu"' : '') + '><td class="apto-cel">' + esc(u) + '</td><td>' + cel(x.marcenaria.e) + '</td><td>' + cel(x.marcenaria.m) + '</td><td>' + cel(x.pedras.e) + '</td><td>' + cel(x.pedras.m) + '</td></tr>'; }).join('') +
+      '</tbody></table></div>';
+  }
+
+  function renderComuns() {
+    var lista = Object.keys(D.comuns).map(function (id) { return D.comuns[id]; }).sort(function (a, b) { return a.de < b.de ? -1 : a.de > b.de ? 1 : 0; });
+    if (!lista.length) { $('#comuns').innerHTML = '<div class="aviso">Nenhuma reserva da construtora para as áreas comuns.</div>'; return; }
+    $('#comuns').innerHTML = '<div class="rolagem"><table><thead><tr><th>Período</th><th>Área</th><th>O quê</th><th>Horário</th><th>Situação</th></tr></thead><tbody>' +
+      lista.map(function (c) { return '<tr><td>' + dm(c.de) + ((c.ate || c.de) !== c.de ? '–' + dm(c.ate) : '') + '</td><td>' + esc(c.area) + '</td><td>' + TIPOS_C[tipoC(c)] + '</td><td>' + periodoC(c) + '</td><td><span class="sub">' + (c.status === 'concluida' ? 'concluída' : 'agendada') + '</span></td></tr>'; }).join('') +
       '</tbody></table></div>';
   }
 
@@ -674,7 +794,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
 
     var uteis = dias.filter(aberto);
     var ocupados = uteis.filter(function (s) { return D.entregas[s]; });
-    var livres = uteis.filter(function (s) { return !D.entregas[s] && s >= hoje; });
+    var livres = uteis.filter(function (s) { return !D.entregas[s] && s >= hoje && !diaFechado(s); });
     var aptos = {}; uteis.forEach(function (s) { montagensDoDia(s).forEach(function (m) { aptos[m.unidade] = 1; }); });
     var nAptos = Object.keys(aptos).length, per = UI.vista === 'semana' ? 'na semana' : 'no mês';
     $('#resumo').innerHTML =
@@ -686,12 +806,14 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
 
     renderMinha();
     renderAptos();
+    renderComuns();
 
     $('#regras').innerHTML =
       '<li><b>Uma entrega de materiais por dia.</b> Cada dia recebe a entrega de um único apartamento, marcenaria ou pedras. Dia com reserva fica fechado para outra entrega.</li>' +
       '<li><b>Montagem só depois da entrega.</b> O acesso do prestador é liberado para o apartamento que já recebeu o material correspondente.</li>' +
       '<li><b>Horário: ' + textoJanelas() + '.</b> De segunda a sexta, exceto feriados.</li>' +
       '<li><b>Reserva sempre antecipada.</b> O pedido é feito ao síndico ou à engenheira da construtora, que registram aqui. Dano ou mau uso das áreas comuns fica por conta do proprietário.</li>' +
+      '<li><b>Áreas comuns.</b> A construtora pode reservar o dia todo ou um período para entregas, montagem e serviços nas áreas comuns. Quando a reserva fecha o período, não há entrega para apartamentos nesse intervalo.</li>' +
       '<li><b>Agenda aberta até ' + dma(ate()) + '.</b></li>';
     var c = $('#contato');
     if (D.config.contato) { c.hidden = false; c.textContent = 'Para pedir reserva: ' + D.config.contato; } else c.hidden = true;
@@ -702,7 +824,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   }
 
   /* ---------- formulários ---------- */
-  var edit = { entrega: null, montagem: null };
+  var edit = { entrega: null, montagem: null, comum: null };
   function erro(id, msg) { var el = $(id); el.hidden = !msg; el.textContent = msg || ''; return false; }
   function armarExcluir(btn) { btn.hidden = false; btn.textContent = 'Excluir'; btn.dataset.passo = '0'; }
   function proximoAberto(s) { var d = parse(s < INICIO ? INICIO : s), n = 0; while (!aberto(iso(d)) && n++ < 30) d = addDays(d, 1); return iso(d); }
@@ -773,6 +895,44 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
       return '';
     }, 'Agenda: montagem apto ' + f.unidade + ' de ' + dm(f.de) + ' a ' + dm(f.ate), '#m-erro', '#dlg-montagem', $('#m-salvar'));
   }
+  function horasComum() { var t = $('#k-diatodo').checked; $('#k-inicio').disabled = t; $('#k-fim').disabled = t; }
+  function abrirComum(id, dia) {
+    var c = id ? D.comuns[id] : null;
+    edit.comum = id || null;
+    var d0 = dia || proximoAberto(hojeIso());
+    $('#tit-comum').textContent = c ? 'Editar reserva da construtora' : 'Reserva da construtora';
+    $('#k-area').value = c ? c.area : '';
+    $('#k-tipo').value = c ? tipoC(c) : 'entrega';
+    limites($('#k-de')); limites($('#k-ate'));
+    $('#k-de').value = c ? c.de : d0;
+    $('#k-ate').value = c ? (c.ate || c.de) : d0;
+    $('#k-diatodo').checked = c ? !!c.diaTodo : true;
+    $('#k-inicio').value = c && c.inicio ? c.inicio : (D.config.haMorador ? '08:00' : '07:30');
+    $('#k-fim').value = c && c.fim ? c.fim : '11:30';
+    $('#k-bloqueia').checked = c ? !!c.bloqueia : true;
+    $('#k-empresa').value = c ? (c.empresa || '') : '';
+    $('#k-obs').value = c ? (c.obs || '') : '';
+    $('#k-status').value = c && c.status === 'concluida' ? 'concluida' : 'agendada';
+    horasComum(); erro('#k-erro', '');
+    var x = $('#k-excluir'); if (c) armarExcluir(x); else x.hidden = true;
+    $('#dlg-comum').showModal();
+  }
+  function salvarComum(ev) {
+    ev.preventDefault();
+    var id = edit.comum, todo = $('#k-diatodo').checked;
+    var f = { area: $('#k-area').value.trim(), tipo: $('#k-tipo').value, de: $('#k-de').value, ate: $('#k-ate').value || $('#k-de').value, diaTodo: todo,
+      inicio: todo ? '' : $('#k-inicio').value, fim: todo ? '' : $('#k-fim').value, bloqueia: $('#k-bloqueia').checked,
+      empresa: $('#k-empresa').value.trim(), obs: $('#k-obs').value.trim(), status: $('#k-status').value };
+    var msg = validarComum(f, id);
+    if (msg) return erro('#k-erro', msg);
+    gravar(function () {
+      var m = validarComum(f, id); if (m) return m;
+      if (id && !D.comuns[id]) return 'Esta reserva foi excluída por outra pessoa.';
+      D.comuns[id || ('c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6))] = Object.assign({}, f, { por: ED.nome });
+      UI.semana = limitarSemana(monday(parse(f.de))); UI.mes = limitarMes(f.de.slice(0, 7)); UI.dia = f.de;
+      return '';
+    }, 'Agenda: construtora em ' + f.area + ' de ' + dm(f.de) + ' a ' + dm(f.ate), '#k-erro', '#dlg-comum', $('#k-salvar'));
+  }
   function excluir(btn, grupo, id, dlg, idErro) {
     if (btn.dataset.passo !== '1') { btn.dataset.passo = '1'; btn.textContent = 'Confirmar exclusão'; return; }
     gravar(function () { delete D[grupo][id]; return ''; }, 'Agenda: exclusão em ' + grupo + ' (' + id + ')', idErro, dlg, btn);
@@ -824,11 +984,18 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     else if (k === 'editar-entrega') abrirEntrega(a.dataset.id);
     else if (k === 'nova-montagem') abrirMontagem(null, a.dataset.dia);
     else if (k === 'editar-montagem') abrirMontagem(a.dataset.id);
+    else if (k === 'nova-comum') abrirComum(null, a.dataset.dia);
+    else if (k === 'editar-comum') abrirComum(a.dataset.id);
     else if (k === 'config') { $('#c-morador').checked = !!D.config.haMorador; $('#c-contato').value = D.config.contato || ''; $('#c-ate').value = ate(); $('#c-ate').min = INICIO; erro('#c-erro', ''); $('#dlg-config').showModal(); }
   });
   $('#form-entrega').addEventListener('submit', salvarEntrega);
   $('#form-montagem').addEventListener('submit', salvarMontagem);
   $('#form-config').addEventListener('submit', salvarConfig);
+  $('#form-comum').addEventListener('submit', salvarComum);
+  $('#k-excluir').addEventListener('click', function () { excluir(this, 'comuns', edit.comum, '#dlg-comum', '#k-erro'); });
+  $('#k-diatodo').addEventListener('change', horasComum);
+  $('#k-tipo').addEventListener('change', function () { $('#k-bloqueia').checked = this.value === 'entrega'; });
+  $('#k-de').addEventListener('change', function () { var at = $('#k-ate'); if (!at.value || at.value < this.value) at.value = this.value; });
   $('#form-entrar').addEventListener('submit', entrar);
   $('#e-excluir').addEventListener('click', function () { excluir(this, 'entregas', edit.entrega, '#dlg-entrega', '#e-erro'); });
   $('#m-excluir').addEventListener('click', function () { excluir(this, 'montagens', edit.montagem, '#dlg-montagem', '#m-erro'); });
