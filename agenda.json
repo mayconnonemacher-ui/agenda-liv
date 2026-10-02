@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-02T13:31:18.389Z",
+ "atualizadoEm": "2026-10-02T13:55:42.589Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -13,6 +13,16 @@
    "fim": "17:30",
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "CLEVERSON / CAIO / EDSON\nMontagem de Marcenaria \nO dia todo para entrega",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-07": {
+   "unidade": "801",
+   "tipo": "marcenaria",
+   "inicio": "08:00",
+   "fim": "17:30",
+   "empresa": "F J MARAFON E CIA LTDA. CNPJ: 27.971.246/0001-67 Inscrição Estadual: 9075345884",
+   "obs": "Rafael da Silva Rodrigues \nSergio Vinicius Bueno Braga\nAdão Antunes ferreira\nmatheus brazau malinowski\nNicolas de Oliveira Leonel",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
