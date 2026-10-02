@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-02T14:01:43.065Z",
+ "atualizadoEm": "2026-10-02T14:01:54.254Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -53,18 +53,6 @@
    "tipo": "marcenaria",
    "de": "2026-10-06",
    "ate": "2026-10-06",
-   "chegada": "07:30",
-   "status": "agendada",
-   "empresa": "DABOL MOVEIS",
-   "materiaisDeclarados": true,
-   "obs": "DIA TODO",
-   "por": "Lisiane"
-  },
-  "mmur154bzbaf7": {
-   "unidade": "002",
-   "tipo": "marcenaria",
-   "de": "2026-10-08",
-   "ate": "2026-10-08",
    "chegada": "07:30",
    "status": "agendada",
    "empresa": "DABOL MOVEIS",
