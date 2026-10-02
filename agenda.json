@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-02T14:15:29.655Z",
+ "atualizadoEm": "2026-10-02T14:15:39.038Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -25,16 +25,6 @@
    "obs": "Rafael da Silva Rodrigues \nSergio Vinicius Bueno Braga\nAdão Antunes ferreira\nmatheus brazau malinowski\nNicolas de Oliveira Leonel",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
-  },
-  "2026-10-08": {
-   "unidade": "002",
-   "tipo": "marcenaria",
-   "inicio": "07:30",
-   "fim": "09:30",
-   "empresa": "DABOL MOVEIS",
-   "obs": "DIA TODO",
-   "status": "agendada",
-   "por": "Lisiane"
   }
  },
  "montagens": {},
