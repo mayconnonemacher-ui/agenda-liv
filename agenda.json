@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-05T19:47:58.720Z",
+ "atualizadoEm": "2026-10-05T19:48:18.793Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -71,7 +71,7 @@
    "tipo": "marcenaria",
    "inicio": "07:30",
    "fim": "17:30",
-   "empresa": "",
+   "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "CLEVERSON / CAIO / EDSON\nMontagem de Marcenaria \nO dia todo para entrega",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
