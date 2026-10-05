@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-05T12:36:58.874Z",
+ "atualizadoEm": "2026-10-05T12:55:53.937Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -53,6 +53,16 @@
    "fim": "17:30",
    "empresa": "Gava Ambientes",
    "obs": "",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-15": {
+   "unidade": "1501",
+   "tipo": "marcenaria",
+   "inicio": "07:30",
+   "fim": "17:30",
+   "empresa": "Todeschini",
+   "obs": "Fabiano Psidonik Vargas\nAdelar da Rosa Padilha\nThiago da Costa Nunes\nLeandro Soares de Miranda\nCristiano Patricio Branchi\nDuan Felipe de Castro Lopes\nPaulo Roberto Pereira Guimaraes",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
