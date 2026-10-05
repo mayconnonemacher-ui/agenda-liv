@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-05T12:36:29.003Z",
+ "atualizadoEm": "2026-10-05T12:36:35.556Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -92,20 +92,6 @@
    "tipo": "entrega",
    "de": "2026-10-15",
    "ate": "2026-10-15",
-   "diaTodo": true,
-   "inicio": "",
-   "fim": "",
-   "bloqueia": true,
-   "empresa": "DABOL MOVEIS",
-   "obs": "",
-   "status": "agendada",
-   "por": "Lisiane"
-  },
-  "cmuv5w2xy2nw4": {
-   "area": "RECEPÇÃO",
-   "tipo": "entrega",
-   "de": "2026-10-20",
-   "ate": "2026-10-20",
    "diaTodo": true,
    "inicio": "",
    "fim": "",
