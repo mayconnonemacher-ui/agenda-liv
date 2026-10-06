@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-05T19:48:18.793Z",
+ "atualizadoEm": "2026-10-06T18:30:49.997Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -73,6 +73,16 @@
    "fim": "17:30",
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "CLEVERSON / CAIO / EDSON\nMontagem de Marcenaria \nO dia todo para entrega",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-26": {
+   "unidade": "601",
+   "tipo": "marcenaria",
+   "inicio": "07:30",
+   "fim": "12:00",
+   "empresa": "GAVA MÓVEIS",
+   "obs": "",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
