@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-06T18:30:49.997Z",
+ "atualizadoEm": "2026-10-06T18:57:29.130Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -14,7 +14,8 @@
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "CLEVERSON / CAIO / EDSON\nMontagem de Marcenaria \nO dia todo para entrega",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-05"
   },
   "2026-10-07": {
    "unidade": "801",
@@ -24,7 +25,8 @@
    "empresa": "F J MARAFON E CIA LTDA. CNPJ: 27.971.246/0001-67 Inscrição Estadual: 9075345884",
    "obs": "Rafael da Silva Rodrigues \nSergio Vinicius Bueno Braga\nAdão Antunes ferreira\nmatheus brazau malinowski\nNicolas de Oliveira Leonel",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-07"
   },
   "2026-10-09": {
    "unidade": "1302",
@@ -34,7 +36,8 @@
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-09"
   },
   "2026-10-13": {
    "unidade": "1501",
@@ -44,7 +47,8 @@
    "empresa": "Todeschini",
    "obs": "Fabiano Psidonik Vargas\nAdelar da Rosa Padilha\nThiago da Costa Nunes\nLeandro Soares de Miranda\nCristiano Patricio Branchi\nDuan Felipe de Castro Lopes\nPaulo Roberto Pereira Guimaraes",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-13"
   },
   "2026-10-14": {
    "unidade": "1102",
@@ -54,7 +58,8 @@
    "empresa": "Gava Ambientes",
    "obs": "",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-14"
   },
   "2026-10-15": {
    "unidade": "1501",
@@ -64,7 +69,8 @@
    "empresa": "Todeschini",
    "obs": "Fabiano Psidonik Vargas\nAdelar da Rosa Padilha\nThiago da Costa Nunes\nLeandro Soares de Miranda\nCristiano Patricio Branchi\nDuan Felipe de Castro Lopes\nPaulo Roberto Pereira Guimaraes",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-15"
   },
   "2026-10-16": {
    "unidade": "1302",
@@ -74,7 +80,8 @@
    "empresa": "C. MADALOSSO IND E COM DE MOVEIS",
    "obs": "CLEVERSON / CAIO / EDSON\nMontagem de Marcenaria \nO dia todo para entrega",
    "status": "agendada",
-   "por": "Maycon Nonnemmacher"
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-16"
   },
   "2026-10-26": {
    "unidade": "601",
@@ -83,6 +90,18 @@
    "fim": "12:00",
    "empresa": "GAVA MÓVEIS",
    "obs": "",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher",
+   "data": "2026-10-26"
+  },
+  "2026-10-09_1530": {
+   "data": "2026-10-09",
+   "unidade": "601",
+   "tipo": "marcenaria",
+   "inicio": "15:30",
+   "fim": "17:30",
+   "empresa": "Gesso",
+   "obs": "Paula (Proprietária irá acompanhar)",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
