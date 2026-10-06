@@ -269,6 +269,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     <span><i class="pil marcenaria">nº</i><i class="pil pedras">nº</i> montagem (cor clara)</span>
     <span>marrom = marcenaria · azul = pedras</span>
     <span><i class="pil comum">AC</i> áreas comuns (construtora)</span>
+    <span><b class="cel-livre">parcial</b> dia com entrega marcada e horário ainda livre</span>
     <span><i class="marca ok">Entregue</i> material já no apartamento</span>
     <span><i class="marca alerta">Aguarda entrega</i> montagem depende de entrega ainda não confirmada</span>
   </div>
@@ -309,7 +310,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
 <dialog id="dlg-entrega" aria-labelledby="tit-entrega">
   <form class="form" id="form-entrega" novalidate>
     <h2 id="tit-entrega">Entrega de materiais</h2>
-    <p class="dica">Uma única entrega por dia no prédio, para um apartamento, de segunda a sexta.</p>
+    <p class="dica">Pode haver mais de uma entrega no mesmo dia, desde que os horários não se sobreponham. Cada apartamento recebe no máximo uma entrega por dia.</p>
     <div class="campos">
       <div class="campo"><label for="e-unidade">Apartamento</label><input id="e-unidade" inputmode="numeric" maxlength="4" placeholder="ex.: 1702" autocomplete="off"></div>
       <div class="campo"><label for="e-tipo">Material</label><select id="e-tipo"><option value="marcenaria">Marcenaria</option><option value="pedras">Pedras</option></select></div>
@@ -422,6 +423,8 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   var diaUtil = function (s) { var g = parse(s).getDay(); return g >= 1 && g <= 5; };
   var mins = function (t) { var p = String(t || '0:0').split(':').map(Number); return p[0] * 60 + p[1]; };
   var hora = function (t) { return t ? String(t).replace(':', 'h') : ''; };
+  var hm = function (m) { return pad(Math.floor(m / 60)) + 'h' + pad(m % 60); };
+  var hhmm = function (m) { return pad(Math.floor(m / 60)) + ':' + pad(m % 60); };
   var dm = function (s) { return s.slice(8, 10) + '/' + s.slice(5, 7); };
   var dma = function (s) { return dm(s) + '/' + s.slice(0, 4); };
   var hojeIso = function () { return iso(new Date()); };
@@ -432,6 +435,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     d = d && typeof d === 'object' ? d : {};
     d.config = Object.assign({ haMorador: false, contato: '', ate: ATE_PADRAO }, d.config || {});
     d.entregas = d.entregas && typeof d.entregas === 'object' ? d.entregas : {};
+    Object.keys(d.entregas).forEach(function (k) { var e = d.entregas[k]; if (e && !e.data && /^\d{4}-\d{2}-\d{2}/.test(k)) e.data = k.slice(0, 10); });
     d.montagens = d.montagens && typeof d.montagens === 'object' ? d.montagens : {};
     d.comuns = d.comuns && typeof d.comuns === 'object' ? d.comuns : {};
     return d;
@@ -476,13 +480,25 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
       .filter(function (m) { return m.de && m.de <= s && (m.ate || m.de) >= s; })
       .sort(function (a, b) { return mins(a.chegada) - mins(b.chegada) || String(a.unidade).localeCompare(String(b.unidade)); });
   }
-  function entregaAte(unidade, tipo, limite) {
-    var achou = null;
-    Object.keys(D.entregas).sort().forEach(function (d) {
-      var e = D.entregas[d];
-      if (!achou && String(e.unidade) === String(unidade) && tipoDe(e) === tipo && d <= limite) achou = Object.assign({ data: d }, e);
+  function listaEntregas() { return Object.keys(D.entregas).map(function (id) { return Object.assign({ id: id }, D.entregas[id]); }).filter(function (e) { return e.data; }); }
+  function entregasDoDia(s) { return listaEntregas().filter(function (e) { return e.data === s; }).sort(function (a, b) { return mins(a.inicio) - mins(b.inicio); }); }
+  // intervalos ainda livres para entrega no dia (em minutos), com pelo menos 1 hora
+  function livresDoDia(s) {
+    var oc = entregasDoDia(s).map(function (e) { return [mins(e.inicio), mins(e.fim)]; })
+      .concat(bloqueios(s).map(function (c) { return c.diaTodo ? [0, 1440] : [mins(c.inicio), mins(c.fim)]; }))
+      .sort(function (a, b) { return a[0] - b[0]; });
+    var out = [];
+    janelas().forEach(function (j) {
+      var t = j[0];
+      oc.forEach(function (o) { if (o[1] <= t || o[0] >= j[1]) return; if (o[0] - t >= 60) out.push([t, o[0]]); t = Math.max(t, o[1]); });
+      if (j[1] - t >= 60) out.push([t, j[1]]);
     });
-    return achou;
+    return out;
+  }
+  function textoLivres(lv) { return lv.map(function (g) { return hm(g[0]) + '–' + hm(g[1]); }).join(' e '); }
+  function entregaAte(unidade, tipo, limite) {
+    return listaEntregas().filter(function (e) { return String(e.unidade) === String(unidade) && tipoDe(e) === tipo && e.data <= limite; })
+      .sort(function (a, b) { return a.data < b.data ? -1 : a.data > b.data ? 1 : 0; })[0] || null;
   }
   function materialDe(m) {
     if (m.materiaisDeclarados) return { k: 'declarado' };
@@ -504,7 +520,11 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     if (mins(f.fim) <= mins(f.inicio)) return 'O término precisa ser depois do início.';
     var j = janelaDe(f.inicio);
     if (!j || mins(f.fim) > j[1]) return 'Horário fora do permitido (' + textoJanelas() + ').';
-    if (f.data !== original && D.entregas[f.data]) return 'O dia ' + dm(f.data) + ' já tem a entrega do apto ' + D.entregas[f.data].unidade + '. Só uma entrega por dia: escolha outra data.';
+    var outras = entregasDoDia(f.data).filter(function (o) { return o.id !== original; });
+    var mesmo = outras.filter(function (o) { return String(o.unidade) === f.unidade; })[0];
+    if (mesmo) return 'O apto ' + f.unidade + ' já tem entrega em ' + dm(f.data) + ' (' + hora(mesmo.inicio) + '–' + hora(mesmo.fim) + '). É uma entrega por apartamento por dia.';
+    var choque = outras.filter(function (o) { return mins(f.inicio) < mins(o.fim) && mins(o.inicio) < mins(f.fim); })[0];
+    if (choque) return 'Em ' + dm(f.data) + ' o horário das ' + hora(choque.inicio) + ' às ' + hora(choque.fim) + ' já está reservado para a entrega do apto ' + choque.unidade + '. Escolha um horário que não se sobreponha.';
     return conflitoComum(f.data, f.inicio, f.fim, null);
   }
   function validarMontagem(f) {
@@ -557,8 +577,8 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     if (f.bloqueia && f.status !== 'concluida') {
       var dias = diasAbertos(f.de, f.ate);
       for (var i = 0; i < dias.length; i++) {
-        var e = D.entregas[dias[i]];
-        if (e && (f.diaTodo || (mins(f.inicio) < mins(e.fim) && mins(e.inicio) < mins(f.fim))))
+        var e = entregasDoDia(dias[i]).filter(function (x) { return f.diaTodo || (mins(f.inicio) < mins(x.fim) && mins(x.inicio) < mins(f.fim)); })[0];
+        if (e)
           return 'Em ' + dm(dias[i]) + ' já há a entrega do apto ' + e.unidade + ' das ' + hora(e.inicio) + ' às ' + hora(e.fim) + '. Ajuste o período ou desmarque o fechamento para entregas.';
         var o = bloqueios(dias[i], id).filter(function (x) { return f.diaTodo || cruza(x, f.inicio, f.fim); })[0];
         if (o) return 'Em ' + dm(dias[i]) + ' já existe outra reserva da construtora nesse período (' + o.area + ', ' + periodoC(o) + ').';
@@ -641,9 +661,9 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     if (mat.k === 'agendada') return '<span class="marca alerta">Aguarda entrega de ' + dm(mat.data) + '</span>';
     return '';
   }
-  function cartaoEntrega(dia, e) {
+  function cartaoEntrega(e) {
     var t = tipoDe(e), tag = ED.ativo ? 'button' : 'div';
-    var at = ED.ativo ? ' type="button" data-acao="editar-entrega" data-id="' + esc(dia) + '" aria-label="Editar entrega do apto ' + esc(e.unidade) + '"' : '';
+    var at = ED.ativo ? ' type="button" data-acao="editar-entrega" data-id="' + esc(e.id) + '" aria-label="Editar entrega do apto ' + esc(e.unidade) + '"' : '';
     return '<' + tag + ' class="cartao ' + t + (e.status === 'entregue' ? ' feito' : '') + marcaFiltro(e.unidade) + '"' + at + '>' +
       '<span class="apto">Apto ' + esc(e.unidade) + '</span><span class="tipo">' + TIPOS[t] + '</span>' +
       '<span class="linha hora">' + hora(e.inicio) + '–' + hora(e.fim) + '</span>' +
@@ -681,16 +701,16 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
       '</' + tag + '>';
   }
   function htmlDia(s, longo) {
-    var hoje = hojeIso(), passado = s < hoje, e = D.entregas[s], ms = montagensDoDia(s), cs = comunsDoDia(s), bl = bloqueios(s), d = parse(s);
+    var hoje = hojeIso(), passado = s < hoje, es = entregasDoDia(s), lv = livresDoDia(s), ms = montagensDoDia(s), cs = comunsDoDia(s), bl = bloqueios(s), d = parse(s);
     var h = '<section class="dia' + (s === hoje ? ' hoje' : '') + (passado ? ' passado' : '') + '" aria-label="' + DIAS_L[d.getDay()] + ' ' + dm(s) + '">' +
       '<header class="dia-cab"><span class="dia-sem">' + (longo ? DIAS_L[d.getDay()] : DIAS[d.getDay()]) + '</span><span class="dia-data">' + (longo ? d.getDate() + ' de ' + MESES[d.getMonth()] : dm(s)) + '</span>' +
       (s === hoje ? '<span class="dia-hoje">hoje</span>' : '') + '</header>';
     if (!aberto(s)) return h + '<div class="fechado">' + (feriado(s) ? 'Feriado: ' + esc(feriado(s)) + '. Sem entregas nem montagem.' : !diaUtil(s) ? 'Sem entregas nem montagem no fim de semana.' : 'Fora do período da agenda.') + '</div></section>';
-    h += '<div class="faixa"><h3 class="faixa-tit">Entrega de materiais</h3>';
-    if (e) h += cartaoEntrega(s, e);
-    else if (passado) h += '<div class="livre">Sem entrega</div>';
-    else if (diaFechado(s)) h += '<div class="livre">Dia reservado pela construtora</div>';
-    else h += '<div class="livre vaga"><span>' + (bl.length ? 'Livre fora de ' + bl.map(periodoC).join(' e ') : 'Dia livre') + '</span>' + (ED.ativo ? '<button class="mais" type="button" data-acao="nova-entrega" data-dia="' + s + '">Reservar</button>' : '') + '</div>';
+    h += '<div class="faixa"><h3 class="faixa-tit"><span>Entrega de materiais</span><span>' + (es.length > 1 ? es.length : '') + '</span></h3>' + es.map(cartaoEntrega).join('');
+    if (passado) { if (!es.length) h += '<div class="livre">Sem entrega</div>'; }
+    else if (!es.length && diaFechado(s)) h += '<div class="livre">Dia reservado pela construtora</div>';
+    else if (!lv.length) h += '<div class="livre">Sem horário livre</div>';
+    else h += '<div class="livre vaga"><span>' + (es.length || bl.length ? 'Livre: ' + textoLivres(lv) : 'Dia livre') + '</span>' + (ED.ativo ? '<button class="mais" type="button" data-acao="nova-entrega" data-dia="' + s + '">Reservar</button>' : '') + '</div>';
     h += '</div><div class="faixa"><h3 class="faixa-tit"><span>Montagem</span><span>' + (ms.length ? ms.length : '') + '</span></h3>';
     h += ms.length ? ms.map(cartaoMontagem).join('') : '<div class="livre">Nenhum prestador</div>';
     if (ED.ativo) h += '<button class="mais" type="button" data-acao="nova-montagem" data-dia="' + s + '">+ Agendar montagem</button>';
@@ -703,14 +723,20 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     return h + '</section>';
   }
   function htmlCel(s, ym) {
-    var hoje = hojeIso(), e = D.entregas[s], ms = montagensDoDia(s), cs = comunsDoDia(s), fer = feriado(s), d = parse(s);
+    var hoje = hojeIso(), es = entregasDoDia(s), lv = livresDoDia(s), ms = montagensDoDia(s), cs = comunsDoDia(s), fer = feriado(s), d = parse(s);
     var cls = 'cel' + (s.slice(0, 7) !== ym ? ' fora' : '') + (s === hoje ? ' hoje' : '') + (s === UI.dia ? ' sel' : '') + (s < hoje ? ' passado' : '');
     var h = '<button type="button" class="' + cls + '" data-acao="dia" data-dia="' + s + '" aria-label="' + DIAS_L[d.getDay()] + ', ' + d.getDate() + ' de ' + MESES[d.getMonth()] + '"><span class="cel-num">' + d.getDate() + '</span>';
     if (fer) h += '<span class="cel-fer">' + esc(fer) + '</span>';
     else if (aberto(s)) {
-      if (e) h += '<span class="pil cheia ' + tipoDe(e) + marcaFiltro(e.unidade) + '">' + esc(e.unidade) + '</span>';
-      else if (s >= hoje && diaFechado(s)) h += '<span class="cel-res">construtora</span>';
-      else if (s >= hoje) h += '<span class="cel-livre">livre</span>';
+      if (s >= hoje) {
+        if (!es.length && diaFechado(s)) h += '<span class="cel-res">construtora</span>';
+        else if (lv.length) h += '<span class="cel-livre">' + (es.length || bloqueios(s).length ? 'parcial' : 'livre') + '</span>';
+      }
+      if (es.length) {
+        var minhas = UI.apto ? es.filter(function (e) { return String(e.unidade) === UI.apto; }) : [], le = minhas.concat(es.filter(function (e) { return minhas.indexOf(e) < 0; }));
+        h += '<span class="cel-mont">' + le.slice(0, 3).map(function (e) { return '<span class="pil cheia ' + tipoDe(e) + marcaFiltro(e.unidade) + '">' + esc(e.unidade) + '</span>'; }).join('') +
+          (le.length > 3 ? '<span class="pil neutra">+' + (le.length - 3) + '</span>' : '') + '</span>';
+      }
       if (ms.length) {
         var meus = UI.apto ? ms.filter(function (m) { return String(m.unidade) === UI.apto; }) : [], lista = meus.concat(ms.filter(function (m) { return meus.indexOf(m) < 0; }));
         h += '<span class="cel-mont">' + lista.slice(0, 3).map(function (m) { return '<span class="pil ' + tipoDe(m) + marcaFiltro(m.unidade) + '">' + esc(m.unidade) + '</span>'; }).join('') +
@@ -725,7 +751,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     var el = $('#minha');
     if (!UI.apto) { el.hidden = true; return; }
     var itens = [];
-    Object.keys(D.entregas).forEach(function (d) { var e = D.entregas[d]; if (String(e.unidade) === UI.apto)
+    listaEntregas().forEach(function (e) { var d = e.data; if (String(e.unidade) === UI.apto)
       itens.push({ dia: d, q: DIAS[parse(d).getDay()] + ' ' + dm(d), o: 'Entrega de ' + TIPOS[tipoDe(e)].toLowerCase(), d: hora(e.inicio) + '–' + hora(e.fim) + (e.empresa ? ' · ' + e.empresa : ''), s: e.status === 'entregue' ? '<span class="marca ok">Entregue</span>' : '<span class="marca">Agendada</span>' }); });
     Object.keys(D.montagens).forEach(function (id) { var m = D.montagens[id]; if (String(m.unidade) === UI.apto)
       itens.push({ dia: m.de, q: dm(m.de) + ((m.ate || m.de) !== m.de ? ' a ' + dm(m.ate) : ''), o: 'Montagem de ' + TIPOS[tipoDe(m)].toLowerCase(), d: 'chegada ' + hora(m.chegada) + (m.empresa ? ' · ' + m.empresa : ''), s: marcaMaterial(m) || '<span class="marca">Agendada</span>' }); });
@@ -738,7 +764,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   function renderAptos() {
     var mapa = {};
     var pega = function (u) { u = String(u); return mapa[u] || (mapa[u] = { marcenaria: { e: [], m: [] }, pedras: { e: [], m: [] } }); };
-    Object.keys(D.entregas).sort().forEach(function (d) { var e = D.entregas[d]; pega(e.unidade)[tipoDe(e)].e.push(dm(d) + ' <span class="sub">' + (e.status === 'entregue' ? 'entregue' : 'agendada') + '</span>'); });
+    listaEntregas().sort(function (a, b) { return a.data < b.data ? -1 : a.data > b.data ? 1 : 0; }).forEach(function (e) { var d = e.data; pega(e.unidade)[tipoDe(e)].e.push(dm(d) + ' <span class="sub">' + (e.status === 'entregue' ? 'entregue' : 'agendada') + '</span>'); });
     Object.keys(D.montagens).map(function (id) { return D.montagens[id]; }).sort(function (a, b) { return a.de < b.de ? -1 : 1; }).forEach(function (m) {
       var alvo = pega(m.unidade)[tipoDe(m)];
       alvo.m.push(dm(m.de) + ((m.ate || m.de) !== m.de ? '–' + dm(m.ate) : '') + ' <span class="sub">' + (m.status === 'concluida' ? 'concluída' : 'agendada') + '</span>');
@@ -793,14 +819,15 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     else av.hidden = true;
 
     var uteis = dias.filter(aberto);
-    var ocupados = uteis.filter(function (s) { return D.entregas[s]; });
-    var livres = uteis.filter(function (s) { return !D.entregas[s] && s >= hoje && !diaFechado(s); });
+    var nEnt = 0; uteis.forEach(function (s) { nEnt += entregasDoDia(s).length; });
+    var livres = uteis.filter(function (s) { return s >= hoje && livresDoDia(s).length; });
+    var parcial = function (s) { return entregasDoDia(s).length || bloqueios(s).length ? ' (parcial)' : ''; };
     var aptos = {}; uteis.forEach(function (s) { montagensDoDia(s).forEach(function (m) { aptos[m.unidade] = 1; }); });
     var nAptos = Object.keys(aptos).length, per = UI.vista === 'semana' ? 'na semana' : 'no mês';
     $('#resumo').innerHTML =
-      '<div><dt>Entregas ' + per + '</dt><dd><b>' + ocupados.length + '</b>de ' + uteis.length + (uteis.length === 1 ? ' dia útil' : ' dias úteis') + '</dd></div>' +
-      '<div><dt>Dias livres para entrega</dt><dd>' + (UI.vista === 'semana'
-        ? (livres.length ? livres.map(function (s) { return DIAS[parse(s).getDay()] + ' ' + dm(s); }).join(' · ') : 'Nenhum nesta semana')
+      '<div><dt>Entregas ' + per + '</dt><dd><b>' + nEnt + '</b>' + (nEnt === 1 ? 'reserva' : 'reservas') + '</dd></div>' +
+      '<div><dt>Dias com horário livre para entrega</dt><dd>' + (UI.vista === 'semana'
+        ? (livres.length ? livres.map(function (s) { return DIAS[parse(s).getDay()] + ' ' + dm(s) + parcial(s); }).join(' · ') : 'Nenhum nesta semana')
         : '<b>' + livres.length + '</b>' + (livres.length === 1 ? 'dia' : 'dias') + (livres.length ? ' · próximo: ' + DIAS[parse(livres[0]).getDay()] + ' ' + dm(livres[0]) : '')) + '</dd></div>' +
       '<div><dt>Em montagem ' + per + '</dt><dd><b>' + nAptos + '</b>' + (nAptos === 1 ? 'apartamento' : 'apartamentos') + '</dd></div>';
 
@@ -809,7 +836,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     renderComuns();
 
     $('#regras').innerHTML =
-      '<li><b>Uma entrega de materiais por dia.</b> Cada dia recebe a entrega de um único apartamento, marcenaria ou pedras. Dia com reserva fica fechado para outra entrega.</li>' +
+      '<li><b>Entregas sem sobreposição de horário.</b> Pode haver mais de uma entrega de materiais no mesmo dia, cada uma no seu horário. Cada apartamento recebe no máximo uma entrega por dia.</li>' +
       '<li><b>Montagem só depois da entrega.</b> O acesso do prestador é liberado para o apartamento que já recebeu o material correspondente.</li>' +
       '<li><b>Horário: ' + textoJanelas() + '.</b> De segunda a sexta, exceto feriados.</li>' +
       '<li><b>Reserva sempre antecipada.</b> O pedido é feito ao síndico ou à engenheira da construtora, que registram aqui. Dano ou mau uso das áreas comuns fica por conta do proprietário.</li>' +
@@ -836,9 +863,11 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     $('#tit-entrega').textContent = e ? 'Editar entrega' : 'Reservar entrega de materiais';
     $('#e-unidade').value = e ? e.unidade : '';
     $('#e-tipo').value = e ? tipoDe(e) : 'marcenaria';
-    limites($('#e-data')); $('#e-data').value = id || dia || proximoAberto(hojeIso());
-    $('#e-inicio').value = e ? e.inicio : (D.config.haMorador ? '08:00' : '07:30');
-    $('#e-fim').value = e ? e.fim : (D.config.haMorador ? '10:00' : '09:30');
+    var d0 = e ? e.data : (dia || proximoAberto(hojeIso())), lv = e ? [] : livresDoDia(d0);
+    var ini = lv.length ? lv[0][0] : janelas()[0][0], fimP = lv.length ? Math.min(lv[0][1], ini + 120) : ini + 120;
+    limites($('#e-data')); $('#e-data').value = d0;
+    $('#e-inicio').value = e ? e.inicio : hhmm(ini);
+    $('#e-fim').value = e ? e.fim : hhmm(fimP);
     $('#e-empresa').value = e ? (e.empresa || '') : '';
     $('#e-obs').value = e ? (e.obs || '') : '';
     $('#e-status').value = e && e.status === 'entregue' ? 'entregue' : 'agendada';
@@ -874,8 +903,8 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     if (msg) return erro('#e-erro', msg);
     gravar(function () {
       var m = validarEntrega(f, original); if (m) return m;
-      if (original && original !== f.data) delete D.entregas[original];
-      D.entregas[f.data] = { unidade: f.unidade, tipo: f.tipo, inicio: f.inicio, fim: f.fim, empresa: f.empresa, obs: f.obs, status: f.status, por: ED.nome };
+      if (original) delete D.entregas[original];
+      D.entregas[f.data + '_' + f.inicio.replace(':', '')] = { data: f.data, unidade: f.unidade, tipo: f.tipo, inicio: f.inicio, fim: f.fim, empresa: f.empresa, obs: f.obs, status: f.status, por: ED.nome };
       UI.semana = limitarSemana(monday(parse(f.data))); UI.mes = limitarMes(f.data.slice(0, 7)); UI.dia = f.data;
       return '';
     }, 'Agenda: entrega apto ' + f.unidade + ' em ' + dm(f.data), '#e-erro', '#dlg-entrega', $('#e-salvar'));
