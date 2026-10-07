@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-06T18:57:29.130Z",
+ "atualizadoEm": "2026-10-07T17:59:40.313Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -102,6 +102,17 @@
    "fim": "17:30",
    "empresa": "Gesso",
    "obs": "Paula (Proprietária irá acompanhar)",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-22_0830": {
+   "data": "2026-10-22",
+   "unidade": "501",
+   "tipo": "marcenaria",
+   "inicio": "08:30",
+   "fim": "17:30",
+   "empresa": "Móveis Marafon",
+   "obs": "",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
