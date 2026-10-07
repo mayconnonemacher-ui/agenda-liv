@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-07T18:27:30.583Z",
+ "atualizadoEm": "2026-10-07T18:28:03.687Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -113,6 +113,17 @@
    "fim": "12:00",
    "empresa": "Móveis Marafon",
    "obs": "",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-21_0830": {
+   "data": "2026-10-21",
+   "unidade": "501",
+   "tipo": "marcenaria",
+   "inicio": "08:30",
+   "fim": "12:30",
+   "empresa": "",
+   "obs": "C ar Condicionados",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
