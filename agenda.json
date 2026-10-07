@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-07T17:59:40.313Z",
+ "atualizadoEm": "2026-10-07T18:27:30.583Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -110,7 +110,7 @@
    "unidade": "501",
    "tipo": "marcenaria",
    "inicio": "08:30",
-   "fim": "17:30",
+   "fim": "12:00",
    "empresa": "Móveis Marafon",
    "obs": "",
    "status": "agendada",
