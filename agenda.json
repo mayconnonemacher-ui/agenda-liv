@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-07T18:28:03.687Z",
+ "atualizadoEm": "2026-10-08T11:07:40.148Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -149,6 +149,20 @@
    "tipo": "entrega",
    "de": "2026-10-08",
    "ate": "2026-10-08",
+   "diaTodo": true,
+   "inicio": "",
+   "fim": "",
+   "bloqueia": true,
+   "empresa": "DABOL MOVEIS",
+   "obs": "",
+   "status": "agendada",
+   "por": "Lisiane"
+  },
+  "cmuzfmx9wf6x6": {
+   "area": "Salão de Festas",
+   "tipo": "entrega",
+   "de": "2026-10-19",
+   "ate": "2026-10-19",
    "diaTodo": true,
    "inicio": "",
    "fim": "",
