@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-09T14:45:36.157Z",
+ "atualizadoEm": "2026-10-09T14:46:06.171Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -140,6 +140,17 @@
   },
   "2026-11-04_0900": {
    "data": "2026-11-04",
+   "unidade": "801",
+   "tipo": "pedras",
+   "inicio": "09:00",
+   "fim": "10:30",
+   "empresa": "Granitom",
+   "obs": "",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-11-05_0900": {
+   "data": "2026-11-05",
    "unidade": "801",
    "tipo": "pedras",
    "inicio": "09:00",
