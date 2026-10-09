@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-08T18:22:10.797Z",
+ "atualizadoEm": "2026-10-09T11:48:59.872Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -124,6 +124,17 @@
    "fim": "12:30",
    "empresa": "",
    "obs": "C ar Condicionados",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-11-09_0730": {
+   "data": "2026-11-09",
+   "unidade": "1502",
+   "tipo": "marcenaria",
+   "inicio": "07:30",
+   "fim": "12:30",
+   "empresa": "Prisma Revestimento",
+   "obs": "",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
   }
