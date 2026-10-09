@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-09T11:48:59.872Z",
+ "atualizadoEm": "2026-10-09T14:44:51.229Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -148,6 +148,18 @@
    "chegada": "07:30",
    "status": "agendada",
    "empresa": "Bom Tempo",
+   "materiaisDeclarados": true,
+   "obs": "",
+   "por": "Maycon Nonnemmacher"
+  },
+  "mmv12u2sd7wy8": {
+   "unidade": "801",
+   "tipo": "pedras",
+   "de": "2026-11-09",
+   "ate": "2026-11-09",
+   "chegada": "09:30",
+   "status": "agendada",
+   "empresa": "Granitom",
    "materiaisDeclarados": true,
    "obs": "",
    "por": "Maycon Nonnemmacher"
