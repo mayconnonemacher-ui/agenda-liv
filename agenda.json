@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-13T12:28:38.505Z",
+ "atualizadoEm": "2026-10-13T14:02:02.331Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -206,6 +206,18 @@
    "empresa": "Granitom",
    "materiaisDeclarados": true,
    "obs": "",
+   "por": "Maycon Nonnemmacher"
+  },
+  "mmv6r2fa23a1n": {
+   "unidade": "601",
+   "tipo": "marcenaria",
+   "de": "2026-10-14",
+   "ate": "2026-10-14",
+   "chegada": "07:30",
+   "status": "agendada",
+   "empresa": "Gesso",
+   "materiaisDeclarados": false,
+   "obs": "Jeremias, Augustinho e Luiz Henrique",
    "por": "Maycon Nonnemmacher"
   }
  },
