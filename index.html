@@ -405,6 +405,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   var RAW = 'https://raw.githubusercontent.com/' + GH.dono + '/' + GH.repo + '/' + GH.ramo + '/' + GH.arquivo;
   var INICIO = '2026-09-28';
   var ATE_PADRAO = '2027-01-31';
+  var VERSAO = 4; // aumente a cada publicação: páginas abertas com versão menor se recarregam sozinhas
   var FERIADOS = { '2026-10-12': 'N. Sra. Aparecida', '2026-11-02': 'Finados', '2026-11-20': 'Consciência Negra', '2026-12-25': 'Natal', '2027-01-01': 'Confraternização Universal' };
 
   var $ = function (s) { return document.querySelector(s); };
@@ -621,8 +622,8 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     try {
       if (ED.ativo) { try { D = (await ghLer()).dados; } catch (e) { if (e && e.status === 401) sair(); D = await lerPublico(); } }
       else D = await lerPublico();
-      UI.estado = 'ok'; UI.conferido = new Date();
-    } catch (e) { if (UI.estado !== 'ok') UI.estado = 'erro'; }
+      UI.estado = 'ok'; UI.conferido = new Date(); UI.falha = false;
+    } catch (e) { if (UI.estado !== 'ok') UI.estado = 'erro'; else UI.falha = true; }
     lendo = false;
     UI.semana = limitarSemana(UI.semana); UI.mes = limitarMes(UI.mes);
     render();
@@ -635,6 +636,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
         var c = await ghLer(); D = c.dados;
         var m = mut();
         if (m) { render(); erro(idErro, m); break; }
+        canonizar();
         D.atualizadoEm = new Date().toISOString();
         try { await ghGravar(D, c.sha, msg + (ED.nome ? ' (' + ED.nome + ')' : '')); UI.conferido = new Date(); $(dlg).close(); render(); break; }
         catch (e) { if (e && e.status === 409 && i < 1) continue; throw e; }
@@ -649,6 +651,36 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
       render();
     }
     btn.disabled = false;
+  }
+  // A chave da primeira entrega de cada dia é o próprio dia (formato que todas as versões da página entendem);
+  // as demais entregas do mesmo dia usam dia_HHMM.
+  function canonizar() {
+    var porDia = {}, novo = {};
+    Object.keys(D.entregas).forEach(function (k) { var e = D.entregas[k]; if (!e || !e.data) { novo[k] = e; return; } (porDia[e.data] = porDia[e.data] || []).push(e); });
+    Object.keys(porDia).sort().forEach(function (dia) {
+      porDia[dia].sort(function (a, b) { return mins(a.inicio) - mins(b.inicio); }).forEach(function (e, i) {
+        var k = i === 0 ? dia : dia + '_' + String(e.inicio).replace(':', '');
+        while (novo[k]) k += 'x';
+        novo[k] = e;
+      });
+    });
+    D.entregas = novo;
+  }
+  // Página aberta há muito tempo: confere se há versão mais nova publicada e recarrega sozinha.
+  var ultimaVersao = 0;
+  async function conferirVersao() {
+    if (location.protocol.indexOf('http') !== 0 || document.querySelector('dialog[open]') || Date.now() - ultimaVersao < 240000) return;
+    ultimaVersao = Date.now();
+    try {
+      var r = await fetch(location.pathname + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      var m = (await r.text()).match(/var VERSAO = (\d+);/), nova = m ? Number(m[1]) : 0, feito = '';
+      try { feito = sessionStorage.getItem('liv-agenda-recarga') || ''; } catch (e) {}
+      if (nova > VERSAO && feito !== String(nova)) {
+        try { sessionStorage.setItem('liv-agenda-recarga', String(nova)); } catch (e) {}
+        location.replace(location.pathname + '?v=' + nova);
+      }
+    } catch (e) {}
   }
   function sair() { ED.token = ''; ED.ativo = false; guarda.por('liv-agenda-token', ''); }
 
@@ -816,6 +848,7 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
     var av = $('#aviso'); av.className = 'aviso';
     if (UI.estado === 'carregando') { av.hidden = false; av.textContent = 'Carregando a agenda…'; }
     else if (UI.estado === 'erro') { av.hidden = false; av.className = 'aviso erro-carga'; av.textContent = 'Não foi possível carregar a agenda agora. Confira a conexão e recarregue a página.'; }
+    else if (UI.falha && UI.conferido) { av.hidden = false; av.className = 'aviso erro-carga'; av.textContent = 'Não foi possível atualizar a agenda agora. As reservas abaixo são as conferidas às ' + pad(UI.conferido.getHours()) + 'h' + pad(UI.conferido.getMinutes()) + '; a página tenta de novo sozinha.'; }
     else av.hidden = true;
 
     var uteis = dias.filter(aberto);
@@ -1035,7 +1068,9 @@ dialog::backdrop { background: rgba(8, 14, 13, .55); }
   render();
   atualizar();
   setInterval(function () { if (!document.hidden) atualizar(); }, 120000);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden && (!UI.conferido || Date.now() - UI.conferido.getTime() > 30000)) atualizar(); });
+  setInterval(function () { if (!document.hidden) conferirVersao(); }, 600000);
+  document.addEventListener('visibilitychange', function () { if (document.hidden) return; conferirVersao(); if (!UI.conferido || Date.now() - UI.conferido.getTime() > 30000) atualizar(); });
+  window.addEventListener('pageshow', function (ev) { if (ev.persisted) { conferirVersao(); atualizar(); } });
 })();
 </script>
 </body>
