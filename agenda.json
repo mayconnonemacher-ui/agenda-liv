@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-16T16:14:50.165Z",
+ "atualizadoEm": "2026-10-16T16:15:30.582Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -166,7 +166,7 @@
    "tipo": "marcenaria",
    "inicio": "09:00",
    "fim": "09:30",
-   "empresa": "",
+   "empresa": "Arq Sacadas",
    "obs": "Entrega de Material",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
