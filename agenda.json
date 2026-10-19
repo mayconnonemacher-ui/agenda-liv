@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-19T20:15:09.011Z",
+ "atualizadoEm": "2026-10-19T20:41:33.201Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -200,6 +200,17 @@
    "inicio": "09:00",
    "fim": "09:30",
    "empresa": "Arq Sacadas",
+   "obs": "",
+   "status": "agendada",
+   "por": "Maycon Nonnemmacher"
+  },
+  "2026-10-30_1330": {
+   "data": "2026-10-30",
+   "unidade": "501",
+   "tipo": "pedras",
+   "inicio": "13:30",
+   "fim": "17:30",
+   "empresa": "Entrega de Equipamentos",
    "obs": "",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
