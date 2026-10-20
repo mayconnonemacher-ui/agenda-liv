@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-19T20:41:33.201Z",
+ "atualizadoEm": "2026-10-20T11:45:54.974Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -340,6 +340,20 @@
    "fim": "",
    "bloqueia": true,
    "empresa": "Dabol Moveis",
+   "obs": "",
+   "status": "agendada",
+   "por": "Lisiane"
+  },
+  "cmvgmabz1y6ii": {
+   "area": "áreas comum",
+   "tipo": "entrega",
+   "de": "2026-10-23",
+   "ate": "2026-10-23",
+   "diaTodo": true,
+   "inicio": "",
+   "fim": "",
+   "bloqueia": true,
+   "empresa": "",
    "obs": "",
    "status": "agendada",
    "por": "Lisiane"
