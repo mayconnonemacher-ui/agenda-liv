@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-23T19:50:54.565Z",
+ "atualizadoEm": "2026-10-23T19:51:14.478Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -210,8 +210,8 @@
    "tipo": "pedras",
    "inicio": "08:00",
    "fim": "17:30",
-   "empresa": "Granitom",
-   "obs": "",
+   "empresa": "Entrega de moveis e Granitom",
+   "obs": "Granitom",
    "status": "agendada",
    "por": "maycon nonnemmacher"
   },
