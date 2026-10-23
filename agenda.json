@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-23T19:52:25.543Z",
+ "atualizadoEm": "2026-10-23T19:53:04.548Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -255,6 +255,17 @@
    "inicio": "08:00",
    "fim": "17:30",
    "empresa": "Entregas",
+   "obs": "",
+   "status": "agendada",
+   "por": "maycon nonnemmacher"
+  },
+  "2026-11-30": {
+   "data": "2026-11-30",
+   "unidade": "801",
+   "tipo": "marcenaria",
+   "inicio": "08:00",
+   "fim": "12:00",
+   "empresa": "subida de vidros da sacada",
    "obs": "",
    "status": "agendada",
    "por": "maycon nonnemmacher"
