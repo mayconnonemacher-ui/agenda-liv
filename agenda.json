@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-23T19:53:04.548Z",
+ "atualizadoEm": "2026-10-27T20:18:17.629Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -225,6 +225,17 @@
    "obs": "",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
+  },
+  "2026-11-05_1330": {
+   "data": "2026-11-05",
+   "unidade": "1302",
+   "tipo": "marcenaria",
+   "inicio": "13:30",
+   "fim": "17:30",
+   "empresa": "",
+   "obs": "",
+   "status": "agendada",
+   "por": "maycon nonnemmacher"
   },
   "2026-11-09": {
    "data": "2026-11-09",
