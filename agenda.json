@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-27T20:19:38.823Z",
+ "atualizadoEm": "2026-10-28T17:00:47.189Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -288,6 +288,17 @@
    "inicio": "08:00",
    "fim": "12:00",
    "empresa": "subida de vidros da sacada",
+   "obs": "",
+   "status": "agendada",
+   "por": "maycon nonnemmacher"
+  },
+  "2026-12-01": {
+   "data": "2026-12-01",
+   "unidade": "601",
+   "tipo": "marcenaria",
+   "inicio": "08:00",
+   "fim": "17:30",
+   "empresa": "Móveis GAVA",
    "obs": "",
    "status": "agendada",
    "por": "maycon nonnemmacher"
