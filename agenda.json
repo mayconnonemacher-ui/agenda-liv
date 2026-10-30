@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-29T20:08:17.955Z",
+ "atualizadoEm": "2026-10-30T10:39:03.972Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -183,6 +183,17 @@
    "por": "maycon nonnemmacher"
   },
   "2026-10-30": {
+   "data": "2026-10-30",
+   "unidade": "602",
+   "tipo": "marcenaria",
+   "inicio": "08:00",
+   "fim": "09:00",
+   "empresa": "AR POLAR",
+   "obs": "Entrega materiais AR Condicionado. Utilizará apenas uma subida do elevador",
+   "status": "agendada",
+   "por": "maycon nonnemmacher"
+  },
+  "2026-10-30_0900": {
    "data": "2026-10-30",
    "unidade": "1001",
    "tipo": "marcenaria",
