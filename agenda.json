@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-04T10:55:36.232Z",
+ "atualizadoEm": "2026-11-04T10:55:48.245Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -477,6 +477,20 @@
    "tipo": "entrega",
    "de": "2026-11-11",
    "ate": "2026-11-11",
+   "diaTodo": true,
+   "inicio": "",
+   "fim": "",
+   "bloqueia": true,
+   "empresa": "",
+   "obs": "",
+   "status": "agendada",
+   "por": "Lisiane"
+  },
+  "cmw203nyt4ty8": {
+   "area": "apartamentos da construtora",
+   "tipo": "entrega",
+   "de": "2026-11-18",
+   "ate": "2026-11-18",
    "diaTodo": true,
    "inicio": "",
    "fim": "",
