@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-10-30T10:39:03.972Z",
+ "atualizadoEm": "2026-11-04T10:52:03.895Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -373,6 +373,18 @@
    "materiaisDeclarados": false,
    "obs": "Jeremias, Augustinho e Luiz Henrique",
    "por": "Maycon Nonnemmacher"
+  },
+  "mmw1zyuuu7kmh": {
+   "unidade": "902",
+   "tipo": "pedras",
+   "de": "2026-11-06",
+   "ate": "2026-11-06",
+   "chegada": "08:00",
+   "status": "agendada",
+   "empresa": "Goo on - Automação",
+   "materiaisDeclarados": true,
+   "obs": "Foi classificado como serviços de Pedras por não ter uma classificação mais adequada ...",
+   "por": "maycon nonnemmacher"
   }
  },
  "comuns": {
