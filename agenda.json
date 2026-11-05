@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-05T19:29:23.611Z",
+ "atualizadoEm": "2026-11-05T20:15:14.408Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -269,6 +269,17 @@
    "obs": "",
    "status": "agendada",
    "por": "Maycon Nonnemmacher"
+  },
+  "2026-11-16": {
+   "data": "2026-11-16",
+   "unidade": "1502",
+   "tipo": "marcenaria",
+   "inicio": "08:00",
+   "fim": "17:00",
+   "empresa": "Prisma Revestimentos / Palimanan",
+   "obs": "",
+   "status": "agendada",
+   "por": "maycon nonnemmacher"
   },
   "2026-11-19": {
    "data": "2026-11-19",
