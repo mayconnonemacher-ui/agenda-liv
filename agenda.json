@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-06T18:53:19.294Z",
+ "atualizadoEm": "2026-11-06T20:46:48.554Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -406,6 +406,18 @@
    "empresa": "Goo on - Automação",
    "materiaisDeclarados": true,
    "obs": "Foi classificado como serviços de Pedras por não ter uma classificação mais adequada ...",
+   "por": "maycon nonnemmacher"
+  },
+  "mmw5g3ene9ncm": {
+   "unidade": "1302",
+   "tipo": "marcenaria",
+   "de": "2026-11-10",
+   "ate": "2026-11-10",
+   "chegada": "08:00",
+   "status": "agendada",
+   "empresa": "Esquadritol",
+   "materiaisDeclarados": false,
+   "obs": "",
    "por": "maycon nonnemmacher"
   }
  },
