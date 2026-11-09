@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-09T14:18:07.255Z",
+ "atualizadoEm": "2026-11-09T14:33:16.122Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -416,6 +416,18 @@
    "chegada": "08:00",
    "status": "agendada",
    "empresa": "Esquadritol",
+   "materiaisDeclarados": false,
+   "obs": "",
+   "por": "maycon nonnemmacher"
+  },
+  "mmw9d2l3uts4f": {
+   "unidade": "602",
+   "tipo": "marcenaria",
+   "de": "2026-11-16",
+   "ate": "2026-11-16",
+   "chegada": "14:00",
+   "status": "agendada",
+   "empresa": "Illustris",
    "materiaisDeclarados": false,
    "obs": "",
    "por": "maycon nonnemmacher"
