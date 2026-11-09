@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-09T14:16:54.240Z",
+ "atualizadoEm": "2026-11-09T14:18:07.255Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -595,6 +595,20 @@
    "tipo": "entrega",
    "de": "2026-11-12",
    "ate": "2026-11-12",
+   "diaTodo": true,
+   "inicio": "",
+   "fim": "",
+   "bloqueia": true,
+   "empresa": "",
+   "obs": "",
+   "status": "agendada",
+   "por": "Lisiane"
+  },
+  "cmw9cj3tj1hp9": {
+   "area": "manutenção elevador",
+   "tipo": "entrega",
+   "de": "2026-11-13",
+   "ate": "2026-11-13",
    "diaTodo": true,
    "inicio": "",
    "fim": "",
