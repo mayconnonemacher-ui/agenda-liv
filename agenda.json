@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-10T11:43:36.350Z",
+ "atualizadoEm": "2026-11-10T11:44:12.030Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -440,6 +440,18 @@
    "status": "agendada",
    "empresa": "Illustris",
    "materiaisDeclarados": false,
+   "obs": "",
+   "por": "maycon nonnemmacher"
+  },
+  "mmwamh0jinra1": {
+   "unidade": "1302",
+   "tipo": "pedras",
+   "de": "2026-11-19",
+   "ate": "2026-11-19",
+   "chegada": "08:00",
+   "status": "agendada",
+   "empresa": "entregas Diversas",
+   "materiaisDeclarados": true,
    "obs": "",
    "por": "maycon nonnemmacher"
   }
