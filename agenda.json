@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-17T16:21:34.618Z",
+ "atualizadoEm": "2026-11-17T16:21:42.106Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -451,18 +451,6 @@
    "chegada": "08:00",
    "status": "agendada",
    "empresa": "entregas Diversas",
-   "materiaisDeclarados": true,
-   "obs": "",
-   "por": "maycon nonnemmacher"
-  },
-  "mmwj4vt4jezcy": {
-   "unidade": "901",
-   "tipo": "marcenaria",
-   "de": "2026-11-18",
-   "ate": "2026-11-18",
-   "chegada": "08:00",
-   "status": "agendada",
-   "empresa": "Bom Tempo",
    "materiaisDeclarados": true,
    "obs": "",
    "por": "maycon nonnemmacher"
