@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-19T01:58:55.353Z",
+ "atualizadoEm": "2026-11-19T01:59:08.487Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -473,7 +473,7 @@
    "ate": "2026-11-19",
    "chegada": "08:00",
    "status": "agendada",
-   "empresa": "",
+   "empresa": "Bontempo",
    "materiaisDeclarados": true,
    "obs": "",
    "por": "maycon nonnemmacher"
