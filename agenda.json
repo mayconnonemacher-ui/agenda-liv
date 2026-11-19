@@ -1,5 +1,5 @@
 {
- "atualizadoEm": "2026-11-19T01:59:08.487Z",
+ "atualizadoEm": "2026-11-19T02:07:28.344Z",
  "config": {
   "haMorador": false,
   "contato": "",
@@ -475,6 +475,18 @@
    "status": "agendada",
    "empresa": "Bontempo",
    "materiaisDeclarados": true,
+   "obs": "",
+   "por": "maycon nonnemmacher"
+  },
+  "mmwmwu0607pbh": {
+   "unidade": "1001",
+   "tipo": "marcenaria",
+   "de": "2026-11-25",
+   "ate": "2026-11-25",
+   "chegada": "08:00",
+   "status": "agendada",
+   "empresa": "Florense",
+   "materiaisDeclarados": false,
    "obs": "",
    "por": "maycon nonnemmacher"
   }
